@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DisposableSoftwareContainer.Docker", "DisposableSoftwareContainer.Docker\DisposableSoftwareContainer.Docker.fsproj", "{41F2B948-F228-43E6-8890-1C9DD87069E6}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DisposableSoftwareContainer.Docker.Tests", "DisposableSoftwareContainer.Docker.Tests\DisposableSoftwareContainer.Docker.Tests.fsproj", "{785D0A8B-BCCE-4055-A00D-3498F423F33D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{41F2B948-F228-43E6-8890-1C9DD87069E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41F2B948-F228-43E6-8890-1C9DD87069E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41F2B948-F228-43E6-8890-1C9DD87069E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41F2B948-F228-43E6-8890-1C9DD87069E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{785D0A8B-BCCE-4055-A00D-3498F423F33D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{785D0A8B-BCCE-4055-A00D-3498F423F33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{785D0A8B-BCCE-4055-A00D-3498F423F33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{785D0A8B-BCCE-4055-A00D-3498F423F33D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

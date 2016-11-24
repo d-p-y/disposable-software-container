@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>DisposableSoftwareContainer.Docker</id>
+	<title>Create Docker containers that are cleaned up automatically. Makes integration tests shorter</title>
+    <version>1.0.0.0</version>
+    <authors>Dominik Pytlewski</authors>
+    <owners/>
+    <licenseUrl>https://github.com/d-p-y/disposable-software-container/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/d-p-y/disposable-software-container</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Provides classes that interact with docker-machine.exe and docker.exe to automatically start machine, create and cleanup containers. Uses IDisposable for lowest ceremony to make tests shortest</description>
+    <copyright>Copyright 2016</copyright>
+    <tags>docker disposable IDisposable</tags>
+    <dependencies>
+      <dependency id="FSharp.Core" version="4.0.0.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin/Release/DisposableDockerContainer.dll" target="lib/net40/DisposableDockerContainer.dll" />
+    <file src="bin/Release/DisposableDockerContainer.pdb" target="lib/net40/DisposableDockerContainer.pdb" />
+  </files>
+</package>
