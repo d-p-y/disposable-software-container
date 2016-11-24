@@ -1,0 +1,10 @@
+nuget.exe
+packages/
+bin/
+obj/
+*.userprefs
+.suo
+*.nupkg
+.vs
+*.user
+runGitVersionPropagate.bat
