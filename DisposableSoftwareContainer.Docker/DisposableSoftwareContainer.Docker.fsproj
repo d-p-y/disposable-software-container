@@ -8,7 +8,7 @@
     <ProjectGuid>41f2b948-f228-43e6-8890-1c9dd87069e6</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>DisposableDockerContainer</RootNamespace>
-    <AssemblyName>DisposableDockerContainer</AssemblyName>
+    <AssemblyName>DisposableSoftwareContainer.Docker</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
