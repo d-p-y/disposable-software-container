@@ -1,4 +1,6 @@
-﻿namespace DisposableDockerContainer.AssemblyInfo
+﻿//Copyright © 2016 Dominik Pytlewski. Licensed under Apache License 2.0. See LICENSE file for details
+
+namespace DisposableDockerContainer.AssemblyInfo
 
 open System.Reflection
 open System.Runtime.CompilerServices

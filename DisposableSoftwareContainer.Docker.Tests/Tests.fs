@@ -1,4 +1,6 @@
-﻿namespace DisposableSoftwareContainer.Docker.Tests
+﻿//Copyright © 2016 Dominik Pytlewski. Licensed under Apache License 2.0. See LICENSE file for details
+
+namespace DisposableSoftwareContainer.Docker.Tests
 
 open System
 open System.IO

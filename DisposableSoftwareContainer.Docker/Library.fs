@@ -1,4 +1,6 @@
-﻿module DisposableSoftwareContainer.Docker
+﻿//Copyright © 2016 Dominik Pytlewski. Licensed under Apache License 2.0. See LICENSE file for details
+
+module DisposableSoftwareContainer.Docker
 
 open System.Diagnostics
 open System.IO
