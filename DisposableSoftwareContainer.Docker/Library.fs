@@ -1,4 +1,4 @@
-﻿//Copyright © 2016 Dominik Pytlewski. Licensed under Apache License 2.0. See LICENSE file for details
+﻿//Copyright © 2018 Dominik Pytlewski. Licensed under Apache License 2.0. See LICENSE file for details
 
 module DisposableSoftwareContainer.Docker
 
@@ -28,7 +28,7 @@ let captureStdout logger startDir program args =
     proc.StartInfo.Arguments <- args
     proc.StartInfo.RedirectStandardOutput <- true
     proc.EnableRaisingEvents <- true    
-    proc.OutputDataReceived.AddHandler(DataReceivedEventHandler(fun _ x -> result.Append(x.Data) |> ignore))
+    proc.OutputDataReceived.AddHandler(DataReceivedEventHandler(fun _ x -> result.AppendLine(x.Data) |> ignore))
 
     do
         match logger with
@@ -71,7 +71,7 @@ type DockerMachine([<Optional;DefaultParameterValue(null)>]?logger) =
 
     let captureStdout = captureStdout (Some log) 
 
-    member __.IpAddress with get() = captureStdout None dockerMachineExe "ip"
+    member __.IpAddress with get() = (captureStdout None dockerMachineExe "ip").TrimEnd()
 
     member __.Stop () = 
         log "docker-machine stopping"
@@ -85,7 +85,7 @@ type DockerMachine([<Optional;DefaultParameterValue(null)>]?logger) =
 
     member __.IsRunning 
         with get() =
-            match captureStdout None dockerMachineExe "status" with
+            match (captureStdout None dockerMachineExe "status").TrimEnd() with
             | "Running" -> true
             | "Stopped" -> false
             | x -> failwithf "unknown status %s" x
@@ -169,8 +169,7 @@ type DockerContainer(dockerFileAndScriptsFolder, [<Optional;DefaultParameterValu
         let output = 
             sprintf "docker build %s ." (getBuildArgs ())  
             |> runDockerCommand
-
-        let pattern = "Successfully[\s]+built[\s]+([^\n$]+)"
+        let pattern = "Successfully[\s]+built[\s]+([^\r\n$]+)"
         let reImageId = Regex(pattern, RegexOptions.IgnoreCase)
         
         match reImageId.Match output with
@@ -182,7 +181,11 @@ type DockerContainer(dockerFileAndScriptsFolder, [<Optional;DefaultParameterValu
         
     let buildContainer imageId =
         sprintf "building container" |> log
-        let containerId = sprintf "docker create %s %s" (getRunArgs ()) imageId |> runDockerCommand
+        let containerId = 
+            let x = 
+                sprintf "docker create %s %s" (getRunArgs ()) imageId 
+                |> runDockerCommand
+            x.TrimEnd()
         sprintf "container built with id=%s" containerId |> log
         containerId
 
