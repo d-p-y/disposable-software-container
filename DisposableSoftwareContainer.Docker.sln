@@ -1,28 +1,51 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DisposableSoftwareContainer.Docker", "DisposableSoftwareContainer.Docker\DisposableSoftwareContainer.Docker.fsproj", "{41F2B948-F228-43E6-8890-1C9DD87069E6}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "DisposableSoftwareContainer.Docker", "DisposableSoftwareContainer.Docker\DisposableSoftwareContainer.Docker.fsproj", "{B37B707D-418E-4041-B658-0E7FCD331AA2}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DisposableSoftwareContainer.Docker.Tests", "DisposableSoftwareContainer.Docker.Tests\DisposableSoftwareContainer.Docker.Tests.fsproj", "{785D0A8B-BCCE-4055-A00D-3498F423F33D}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "DisposableSoftwareContainer.Docker.Tests", "DisposableSoftwareContainer.Docker.Tests\DisposableSoftwareContainer.Docker.Tests.fsproj", "{9077EECB-01EB-4164-9D91-5AB0F774F21B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{41F2B948-F228-43E6-8890-1C9DD87069E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{41F2B948-F228-43E6-8890-1C9DD87069E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{41F2B948-F228-43E6-8890-1C9DD87069E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{41F2B948-F228-43E6-8890-1C9DD87069E6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{785D0A8B-BCCE-4055-A00D-3498F423F33D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{785D0A8B-BCCE-4055-A00D-3498F423F33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{785D0A8B-BCCE-4055-A00D-3498F423F33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{785D0A8B-BCCE-4055-A00D-3498F423F33D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B37B707D-418E-4041-B658-0E7FCD331AA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B37B707D-418E-4041-B658-0E7FCD331AA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B37B707D-418E-4041-B658-0E7FCD331AA2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B37B707D-418E-4041-B658-0E7FCD331AA2}.Debug|x64.Build.0 = Debug|Any CPU
+		{B37B707D-418E-4041-B658-0E7FCD331AA2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B37B707D-418E-4041-B658-0E7FCD331AA2}.Debug|x86.Build.0 = Debug|Any CPU
+		{B37B707D-418E-4041-B658-0E7FCD331AA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B37B707D-418E-4041-B658-0E7FCD331AA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B37B707D-418E-4041-B658-0E7FCD331AA2}.Release|x64.ActiveCfg = Release|Any CPU
+		{B37B707D-418E-4041-B658-0E7FCD331AA2}.Release|x64.Build.0 = Release|Any CPU
+		{B37B707D-418E-4041-B658-0E7FCD331AA2}.Release|x86.ActiveCfg = Release|Any CPU
+		{B37B707D-418E-4041-B658-0E7FCD331AA2}.Release|x86.Build.0 = Release|Any CPU
+		{9077EECB-01EB-4164-9D91-5AB0F774F21B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9077EECB-01EB-4164-9D91-5AB0F774F21B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9077EECB-01EB-4164-9D91-5AB0F774F21B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9077EECB-01EB-4164-9D91-5AB0F774F21B}.Debug|x64.Build.0 = Debug|Any CPU
+		{9077EECB-01EB-4164-9D91-5AB0F774F21B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9077EECB-01EB-4164-9D91-5AB0F774F21B}.Debug|x86.Build.0 = Debug|Any CPU
+		{9077EECB-01EB-4164-9D91-5AB0F774F21B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9077EECB-01EB-4164-9D91-5AB0F774F21B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9077EECB-01EB-4164-9D91-5AB0F774F21B}.Release|x64.ActiveCfg = Release|Any CPU
+		{9077EECB-01EB-4164-9D91-5AB0F774F21B}.Release|x64.Build.0 = Release|Any CPU
+		{9077EECB-01EB-4164-9D91-5AB0F774F21B}.Release|x86.ActiveCfg = Release|Any CPU
+		{9077EECB-01EB-4164-9D91-5AB0F774F21B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AB050BC3-140D-48C7-8C5E-60BDDF7C8755}
 	EndGlobalSection
 EndGlobal
