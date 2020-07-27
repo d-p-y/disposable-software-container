@@ -59,6 +59,14 @@ let getFullPathForExeFile fileName =
     |None -> failwithf "could not find directory containing %s using paths from PATH" fileName
     |Some path -> path
 
+///hacky, not safe, for paths present in %PATH% only
+let winPathToBashCompatibleUnixLikePath (winPath:string) =
+    let drive = winPath.Substring(0, 1).ToLower()
+
+    do if winPath.Substring(1,1) <> ":" then failwithf "expected that path starts with 'letter:' but got something else"
+
+    "'/mnt/" + drive + winPath.Substring(2).Replace('\\', '/')+"'"
+
 // for easier interop from C# make logger a regular action
 type DockerMachine([<Optional;DefaultParameterValue(null)>]?logger) =
     let dockerMachineExe = getFullPathForExeFile "docker-machine.exe"
@@ -70,7 +78,7 @@ type DockerMachine([<Optional;DefaultParameterValue(null)>]?logger) =
     do sprintf "detected docker-machine.exe to be under %s" dockerMachineExe |> log
 
     let captureStdout = captureStdout (Some log) 
-
+    
     member __.IpAddress with get() = (captureStdout None dockerMachineExe "ip").TrimEnd()
 
     member __.Stop () = 
@@ -127,7 +135,12 @@ type DockerContainer(dockerFileAndScriptsFolder, [<Optional;DefaultParameterValu
             | _, Some x -> x
             | _, _ -> failwithf "Could not detect path to neither sh.exe nor bash.exe"
 
+    let dockerExeWithWinPath = getFullPathForExeFile "docker.exe"
+    let dockerExeWithUnixPath = dockerExeWithWinPath |> winPathToBashCompatibleUnixLikePath
+
     do sprintf "detected shell to be under %s" shExePath |> log
+
+    let dm = DockerMachine(defaultArg logger nullLog)
 
     let captureStdout = captureStdout (Some log)
     let startDockerMachine = defaultArg startDockerMachine true
@@ -151,7 +164,7 @@ type DockerContainer(dockerFileAndScriptsFolder, [<Optional;DefaultParameterValu
         |Detect -> System.IO.Path.Combine(dockerFileAndScriptsFolder, runArgsFile) |> File.Exists
         
     let runDockerCommand cmd =
-        sprintf """ -c "eval \"$(docker-machine env --shell=bash default)\"; %s" """ cmd 
+        sprintf """ -c "%s" """ cmd 
         |> captureStdout (Some dockerFileAndScriptsFolder) shExePath 
         
     let getBuildArgs () = 
@@ -167,7 +180,7 @@ type DockerContainer(dockerFileAndScriptsFolder, [<Optional;DefaultParameterValu
     let buildImage () = 
         sprintf "starting image build" |> log
         let output = 
-            sprintf "docker build %s ." (getBuildArgs ())  
+            sprintf "%s build %s ." dockerExeWithUnixPath (getBuildArgs ())  
             |> runDockerCommand
         let pattern = "Successfully[\s]+built[\s]+([^\r\n$]+)"
         let reImageId = Regex(pattern, RegexOptions.IgnoreCase)
@@ -183,7 +196,7 @@ type DockerContainer(dockerFileAndScriptsFolder, [<Optional;DefaultParameterValu
         sprintf "building container" |> log
         let containerId = 
             let x = 
-                sprintf "docker create %s %s" (getRunArgs ()) imageId 
+                sprintf "%s create %s %s" dockerExeWithUnixPath (getRunArgs ()) imageId 
                 |> runDockerCommand
             x.TrimEnd()
         sprintf "container built with id=%s" containerId |> log
@@ -191,7 +204,7 @@ type DockerContainer(dockerFileAndScriptsFolder, [<Optional;DefaultParameterValu
 
     let startContainer containerId = 
         sprintf "starting container id=%s" containerId |> log
-        sprintf "docker start %s" containerId |> runDockerCommand |> ignore
+        sprintf "%s start %s" dockerExeWithUnixPath containerId |> runDockerCommand |> ignore
         "container started" |> log
                     
     interface System.IDisposable with
@@ -202,40 +215,40 @@ type DockerContainer(dockerFileAndScriptsFolder, [<Optional;DefaultParameterValu
                 ()
             |BuiltImage(imageId) -> 
                 sprintf "dispose: removing image %s" imageId |> log
-                sprintf "docker rmi %s" imageId |> runDockerCommand |> ignore
+                sprintf "%s rmi %s" dockerExeWithUnixPath imageId |> runDockerCommand |> ignore
                 state <- NotBuilt
             |BuiltContainer(containerId, imageId) -> 
                 sprintf "dispose: removing container %s" containerId |> log
-                sprintf "docker rm %s" containerId |> runDockerCommand |> ignore
+                sprintf "%s rm %s" dockerExeWithUnixPath containerId |> runDockerCommand |> ignore
                 state <- BuiltImage(imageId)
                 
                 sprintf "dispose: removing image %s" imageId |> log
-                sprintf "docker rmi %s" imageId |> runDockerCommand |> ignore
+                sprintf "%s rmi %s" dockerExeWithUnixPath imageId |> runDockerCommand |> ignore
                 state <- NotBuilt
             |StartedContainer(containerId, imageId) -> 
                 sprintf "dispose: killing container %s" containerId |> log
-                sprintf "docker kill %s" containerId |> runDockerCommand |> ignore
+                sprintf "%s kill %s" dockerExeWithUnixPath containerId |> runDockerCommand |> ignore
                 state <- BuiltContainer(containerId, imageId)
 
                 sprintf "dispose: removing container %s" containerId |> log
-                sprintf "docker rm %s" containerId |> runDockerCommand |> ignore
+                sprintf "%s rm %s" dockerExeWithUnixPath containerId |> runDockerCommand |> ignore
                 state <- BuiltImage(imageId)
 
                 match cleanMode with
                 |ContainerAndImage ->
                     sprintf "dispose: removing image %s" imageId |> log
-                    sprintf "docker rmi %s" imageId |> runDockerCommand |> ignore
+                    sprintf "%s rmi %s" dockerExeWithUnixPath imageId |> runDockerCommand |> ignore
                 |_ -> sprintf "dispose: not removing image %s" imageId |> log
                 state <- NotBuilt
 
     member __.IpAddress 
         with get() = 
-            let mach = DockerMachine(defaultArg logger nullLog)
+            let mach = dm
             if mach.IsRunning then mach.IpAddress else failwithf "docker machine is not running"
 
     member __.State with get() = state
     member __.Start () =
-        do if startDockerMachine then DockerMachine(defaultArg logger nullLog).StartIfNeeded()
+        do if startDockerMachine then dm.StartIfNeeded()
 
         let imageId = buildImage ()
         state <- BuiltImage(imageId)
