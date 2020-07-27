@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Copyright>Copyright © Dominik Pytlewski 2018</Copyright>
+    <Copyright>Copyright © Dominik Pytlewski 2020</Copyright>
     <Company>Dominik Pytlewski</Company>
     <Authors>Dominik Pytlewski</Authors>
   </PropertyGroup>
